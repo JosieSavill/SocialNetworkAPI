@@ -87,3 +87,25 @@ router.patch('/:id', async (req, res) => {
     }
 
 });
+
+
+// route to delete a reaction
+router.delete('/:id', async (req, res) => {
+
+    try {
+
+        const deletedReaction - await reactionfindByIdAndDelete(req.params.id);
+        res.json(deletedReaction);
+     
+    } catch (err) {
+
+        res.status(500).json({ message: err.message });
+
+    }
+
+
+});
+
+
+module.exports = router;
+

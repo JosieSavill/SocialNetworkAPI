@@ -8,16 +8,15 @@ const ReactionsSchema = new Schema(
         reactionBody: {
 
             type: String,
-            requried: true,
+            required: true,
             maxlength: 280,
 
         },
 
         username: {
 
-            trype: String,
+            type: String,
             required: true,
-
 
         },
 
@@ -29,10 +28,27 @@ const ReactionsSchema = new Schema(
 
         },
 
+    },
+
+    {
+
+        toJSON: {
+            getters: true,
+            virtuals: true,
+            versionKey: false,
+            transform: function (doc, ret) {
+
+                delete ret._id;
+            },
+
+        },
+
+        id: false,
+
     }
 
 );
 
 
 
-module.exports = ReactionSchema;
+module.exports = ReactionsSchema;

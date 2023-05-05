@@ -1,6 +1,6 @@
 const { Schema model } = require('mongoose');
 const moment = require('moment');
-// const { kStringMaxLength } = require('buffer');
+
 
 const ThoughtSchema = new Schema(
 

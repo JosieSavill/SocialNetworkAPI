@@ -1,5 +1,6 @@
 const express = require ('express');
 const router = express.Router();
+const { User, Thought, Reaction } = require('../../models');
 
 // import the User and Thought models
 const { User, Thought } = require('../models');
@@ -10,7 +11,7 @@ router.get('/', async (req, res) => {
 
     try {
 
-        const thougthsData = await Thought.find();
+        const thoughtsData = await Thought.find();
         res.status(200).json(thoughtsData);
 
     } catch (err) {
@@ -22,7 +23,7 @@ router.get('/', async (req, res) => {
 });
 
 
-GET a single thought by IdleDeadline
+// GET a single thought 
 router.get('/:id', async (req, res) => {
 
     try {
@@ -83,7 +84,7 @@ router.put('/:id', async (req, res) => {
     try {
 
         const { thoughtText } = req.body;
-        const thoughtData = await Thought.findByidAndUpdate(
+        const thoughtData = await Thought.findByIdAndUpdate(
             req.params.id,
             { thoughtText },
             { new: true }

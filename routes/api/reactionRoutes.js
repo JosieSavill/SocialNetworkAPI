@@ -1,15 +1,15 @@
 const express = require('express');
 const router = express.Router();
+const { User, Thought, Reaction } = require('../../models');
 
-// import Reaction model
-const Reaction = require('../models/Reaction');
+
 
 // route to get all reactions
 router.get('/', async (req, res) => {
 
     try {
 
-        cost reactions = await Reaction.find();
+        const reactionsData = await Reaction.find();
         res.json(reactions);
 
     } catch (err) {
@@ -25,9 +25,9 @@ router.post('/', async (req, res) => {
 
     const reaction = new Reaction({
 
-        type: req.body.type,
-        post_id: req.body.post_id,
-        user_id: req.body.user_id
+        reactionBody: req.body.type,
+        username: req.body.post_id,
+        createdAt: req.body.user_id
 
     });
 
@@ -78,7 +78,7 @@ router.patch('/:id', async (req, res) => {
         }
 
         const updateReaction = await reaction.save();
-        res.json(updatedReaction);
+        res.json(updateReaction);
 
     } catch (err) {
 
@@ -94,7 +94,7 @@ router.delete('/:id', async (req, res) => {
 
     try {
 
-        const deletedReaction - await reactionfindByIdAndDelete(req.params.id);
+        const deletedReaction = await reactionfindByIdAndDelete(req.params.id);
         res.json(deletedReaction);
      
     } catch (err) {

@@ -97,3 +97,4 @@ const Thought = model('Thought', ThoughtSchema);
 module.exports = Thought;
 
 
+//  * Includes Reactions as the `reaction` field's subdocument schema in the Thought model.????????

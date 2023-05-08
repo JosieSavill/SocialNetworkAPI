@@ -5,7 +5,7 @@ const ObjectId = require('mongodb').ObjectId;
 console.log(" are you loading?", ObjectId)
 
 // GET all users
-router.get('/users', async (req, res) => {
+router.get('/', async (req, res) => {
 
     try {
 
@@ -22,7 +22,7 @@ router.get('/users', async (req, res) => {
 
 
 // GET a single user by ID
-router.get('/users/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
 
     try {
 
@@ -45,7 +45,7 @@ router.get('/users/:id', async (req, res) => {
 
 
 // Create a new user
-router.post('/users', async (req, res) => {
+router.post('/', async (req, res) => {
     console.log("getting users",req.body)
 
     try {
@@ -60,8 +60,34 @@ router.post('/users', async (req, res) => {
     }
 });
 
+
+router.put('/:id/friends', async (req, res) => {
+    console.log("getting users",req.body.friendId)
+
+    try {
+
+        let  friendList = [];
+        friendList.push(friendId)
+
+        const user = await User.updateOne(
+        
+            {_id: new ObjectId(req.params.id)}, 
+            
+                {
+                    friends: friendList
+                }
+            
+            );
+
+    } catch (err) {
+
+        res.status(500).json(err);
+
+    }
+});
+
 // Update an existing user
-router.put('/users/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
     console.log("hello put", req.params.id, req.body, new ObjectId(req.params.id))
  
     try {
@@ -75,11 +101,8 @@ router.put('/users/:id', async (req, res) => {
     */
           
       const user = await User.updateOne(
-        
         {_id: new ObjectId(req.params.id)}, 
-        
             req.body
-        
         );
         
 
@@ -98,7 +121,7 @@ router.put('/users/:id', async (req, res) => {
 
 
  // Delete a user
-router.delete('/users/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
     try {
       const user = await User.findByIdAndDelete(req.params.id);
       if (!user) {

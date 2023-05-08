@@ -2,8 +2,7 @@ const express = require ('express');
 const router = express.Router();
 const { User, Thought, Reaction } = require('../../models');
 
-// import the User and Thought models
-const { User, Thought } = require('../models');
+
 
 
 // GET all thoughts
@@ -53,11 +52,11 @@ router.get('/:id', async (req, res) => {
 
 // POST a new thought (and associate it with a user)
 router.post('/', async (req, res) => {
-
+    console.log("creating thought")
     try {
 
-        const { thoughtText, userId } = req.body;
-        const thoughtData = await Thought.create({ thoughtText });
+        const { thoughtText, userId, username } = req.body;
+        const thoughtData = await Thought.create({ thoughtText, username, userId });
         await User.findByIdAndUpdate(
 
             userId,

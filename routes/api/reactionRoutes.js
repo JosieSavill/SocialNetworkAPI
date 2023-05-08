@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
     try {
 
         const reactionsData = await Reaction.find();
-        res.json(reactions);
+        res.json( reactionsData);
 
     } catch (err) {
 
@@ -25,9 +25,9 @@ router.post('/', async (req, res) => {
 
     const reaction = new Reaction({
 
-        reactionBody: req.body.type,
-        username: req.body.post_id,
-        createdAt: req.body.user_id
+        reactionBody: req.body.reactionBody,
+        username: req.body. username,
+        
 
     });
 
@@ -94,7 +94,7 @@ router.delete('/:id', async (req, res) => {
 
     try {
 
-        const deletedReaction = await reactionfindByIdAndDelete(req.params.id);
+        const deletedReaction = await Reaction.findByIdAndDelete(req.params.id);
         res.json(deletedReaction);
      
     } catch (err) {

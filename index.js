@@ -8,6 +8,7 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 const dbName = process.env.DB_NAME;
+const appRoutes = require("./routes");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -40,22 +41,8 @@ db.once('open', () => {
 
 });
 
-
-
-// import routes
-// const thoughtRoutes = require('./routes/api/thoughtRoutes');
-const userRoutes = require('./routes/api/userRoutes');
-const reactionRoutes = require('./routes/api/reactionRoutes');
-
-
-
-
-
-
-// use routes
-// app.use('/api/', thoughtRoutes);
-app.use('/api/', userRoutes);
-app.use('/api/', reactionRoutes);
+//check the routes folder
+app.use(appRoutes)
 
 
 

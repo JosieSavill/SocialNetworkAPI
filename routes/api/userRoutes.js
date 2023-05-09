@@ -61,25 +61,70 @@ router.post('/', async (req, res) => {
 });
 
 
+router.put('/:id/friends/delete', async (req, res) => {
+    console.log("getting users",req.params.id, "friends id:",req.body.friendId)
+
+    try {
+
+       
+        //friendList.push(req.body.friendId)
+
+        const user = await User.findById(req.params.id);
+
+        console.log("i got user", user.friends.toString())
+        let friendList = [];
+        user.friends.map(u => {
+            if(u.toString() === req.body.friendId){
+
+            } else {
+                friendList.push(u)
+            }
+        })
+
+          
+        const result = await User.findByIdAndUpdate(
+            req.params.id,
+            { friends: friendList },
+            { new: true }
+
+        );
+
+           
+
+            res.json(result)
+
+    } catch (err) {
+        console.log(err)
+
+        res.status(500).json(err);
+
+    }
+});
+
+
+
 router.put('/:id/friends', async (req, res) => {
-    console.log("getting users",req.body.friendId)
+    console.log("getting users",req.params.id, "friends id:",req.body.friendId)
 
     try {
 
         let  friendList = [];
-        friendList.push(friendId)
+        friendList.push(req.body.friendId)
 
-        const user = await User.updateOne(
-        
-            {_id: new ObjectId(req.params.id)}, 
-            
-                {
-                    friends: friendList
-                }
-            
-            );
+
+        const result = await User.findByIdAndUpdate(
+            req.params.id,
+            { friends: friendList },
+            { new: true }
+
+        );
+
+            console.log(result)
+
+            res.json(result)
 
     } catch (err) {
+        console.log(err)
 
         res.status(500).json(err);
 
@@ -92,17 +137,11 @@ router.put('/:id', async (req, res) => {
  
     try {
 
-        /*
-        const user = await User.findOneAndUpdate(
-            { _id: ObjectId(req.params.id) },
-            { $set: req.body },
-            { runValidators: true, new: true }
-          );
-    */
-          
-      const user = await User.updateOne(
-        {_id: new ObjectId(req.params.id)}, 
-            req.body
+        const user = await User.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true }
+
         );
         
 
